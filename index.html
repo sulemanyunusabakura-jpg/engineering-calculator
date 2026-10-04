@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magazawa Engineering Calculator Hub</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#22c55e', 600: '#16a34a', 700: '#15803d', 900: '#14532d' }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-white">
+
+    <!-- Header -->
+    <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-emerald-600 p-2 rounded-xl text-white shadow-lg shadow-emerald-900/40">
+                    <i class="fa-solid fa-calculator text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-tight text-white flex items-center gap-2">
+                        Magazawa Tech <span class="text-xs bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full border border-emerald-500/30 font-medium">Pro</span>
+                    </h1>
+                    <p class="text-xs text-slate-400">Created by <span class="text-emerald-400 font-medium">Engr. Suleman Yunusa Bakura</span></p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="hidden sm:inline-flex text-xs bg-slate-800 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-700">
+                    <i class="fa-solid fa-shield-halved text-emerald-400 mr-1.5"></i> NBTE 4.0 Standard Compliant
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow">
+        
+        <!-- Welcome Banner -->
+        <div class="bg-gradient-to-r from-emerald-950/60 via-slate-900 to-slate-900 border border-emerald-800/40 rounded-2xl p-6 sm:p-8 mb-8 shadow-xl relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 text-emerald-500/5 text-9xl pointer-events-none">
+                <i class="fa-solid fa-gears"></i>
+            </div>
+            <div class="max-w-3xl relative z-10">
+                <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400 bg-emerald-950 px-3 py-1 rounded-full border border-emerald-800">Engineering Toolbox</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white mt-3 mb-2">Professional Multi-Discipline Calculator</h2>
+                <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                    Designed and built by <strong class="text-emerald-300 font-semibold">Engr. Suleman Yunusa Bakura</strong> to provide instant, precise engineering formulas across Electrical, Mechanical, and Civil disciplines anywhere, anytime.
+                </p>
+            </div>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="flex flex-wrap gap-2 mb-6 border-b border-slate-800 pb-4">
+            <button onclick="switchCategory('electrical')" id="tab-electrical" class="cat-tab px-4 py-2.5 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 bg-emerald-600 text-white shadow-lg shadow-emerald-900/30">
+                <i class="fa-solid fa-bolt"></i> Electrical / Electronics
+            </button>
+            <button onclick="switchCategory('mechanical')" id="tab-mechanical" class="cat-tab px-4 py-2.5 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800">
+                <i class="fa-solid fa-gears"></i> Mechanical & Thermal
+            </button>
+            <button onclick="switchCategory('civil')" id="tab-civil" class="cat-tab px-4 py-2.5 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800">
+                <i class="fa-solid fa-building"></i> Civil & Structural
+            </button>
+            <button onclick="switchCategory('conversion')" id="tab-conversion" class="cat-tab px-4 py-2.5 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800">
+                <i class="fa-solid fa-scale-balanced"></i> Unit Converters
+            </button>
+        </div>
+
+        <!-- Calculators Container -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <!-- ================= ELECTRICAL SECTION ================= -->
+            <div id="section-electrical" class="calc-section space-y-6">
+                <!-- Ohm's Law Calculator -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl hover:border-emerald-500/50 transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-bolt-lightning text-emerald-400"></i> Ohm's Law & Power Calculator
+                        </h3>
+                        <span class="text-xs bg-slate-800 text-slate-400 px-2.5 py-1 rounded-md">V = I × R</span>
+                    </div>
+                    <p class="text-xs text-slate-400 mb-4">Provide any two known values to compute missing parameters.</p>
+                    
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Voltage ($V$ in Volts)</label>
+                            <input type="number" id="ohm-v" placeholder="Leave blank if unknown" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Current ($I$ in Amperes)</label>
+                            <input type="number" id="ohm-i" placeholder="Leave blank if unknown" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Resistance ($R$ in Ohms $\Omega$)</label>
+                            <input type="number" id="ohm-r" placeholder="Leave blank if unknown" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors">
+                        </div>
+                        <button onclick="calculateOhmsLaw()" class="w-full mt-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2.5 px-4 rounded-xl text-sm transition-all shadow-lg shadow-emerald-900/30">
+                            Calculate Ohm's Law
+                        </button>
+                        <div id="ohm-result" class="mt-4 p-3.5 bg-slate-950 rounded-xl border border-slate-800 hidden text-sm text-emerald-300"></div>
+                    </div>
+                </div>
+
+                <!-- Resistor Color Code Calculator (4 Band) -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl hover:border-emerald-500/50 transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-电阻 text-emerald-400"></i> Resistor Color Code (4-Band)
+                        </h3>
+                    </div>
+                    <div class="grid grid-cols-3 gap-3 mb-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Band 1 (Digit)</label>
+                            <select id="res-b1" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
+                                <option value="0">Black (0)</option><option value="1" selected>Brown (1)</option><option value="2">Red (2)</option><option value="3">Orange (3)</option><option value="4">Yellow (4)</option><option value="5">Green (5)</option><option value="6">Blue (6)</option><option value="7">Violet (7)</option><option value="8">Grey (8)</option><option value="9">White (9)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Band 2 (Digit)</label>
+                            <select id="res-b2" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
+                                <option value="0">Black (0)</option><option value="1">Brown (1)</option><option value="2" selected>Red (2)</option><option value="3">Orange (3)</option><option value="4">Yellow (4)</option><option value="5">Green (5)</option><option value="6">Blue (6)</option><option value="7">Violet (7)</option><option value="8">Grey (8)</option><option value="9">White (9)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Multiplier</label>
+                            <select id="res-mult" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
+                                <option value="1">Black (1Ω)</option><option value="10">Brown (10Ω)</option><option value="100" selected>Red (100Ω)</option><option value="1000">Orange (1kΩ)</option><option value="10000">Yellow (10kΩ)</option><option value="100000">Green (100kΩ)</option><option value="1000000">Blue (1MΩ)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button onclick="calculateResistor()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2.5 px-4 rounded-xl text-sm transition-all shadow-lg shadow-emerald-900/30">
+                        Decode Resistor
+                    </button>
+                    <div id="res-result" class="mt-4 p-3.5 bg-slate-950 rounded-xl border border-slate-800 hidden text-sm text-emerald-300"></div>
+                </div>
+            </div>
+
+            <!-- ================= MECHANICAL SECTION ================= -->
+            <div id="section-mechanical" class="calc-section space-y-6 hidden">
+                <!-- Fluid Flow / Reynolds Number -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl hover:border-emerald-500/50 transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-water text-emerald-400"></i> Reynolds Number ($Re$)
+                        </h3>
+                        <span class="text-xs bg-slate-800 text-slate-400 px-2.5 py-1 rounded-md">Fluid Dynamics</span>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Density ($\rho$ in $kg/m^3$)</label>
+                            <input type="number" id="re-density" value="998" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Velocity ($v$ in $m/s$)</label>
+                            <input type="number" id="re-velocity" value="2.5" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Diameter ($D$ in meters)</label>
+                            <input type="number" id="re-diameter" value="0.05" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Dynamic Viscosity ($\mu$ in $Pa \cdot s$)</label>
+                            <input type="number" id="re-viscosity" value="0.001" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <button onclick="calculateReynolds()" class="w-full mt-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2.5 px-4 rounded-xl text-sm transition-all shadow-lg shadow-emerald-900/30">
+                            Calculate Reynolds Number
+                        </button>
+                        <div id="re-result" class="mt-4 p-3.5 bg-slate-950 rounded-xl border border-slate-800 hidden text-sm text-emerald-300"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= CIVIL SECTION ================= -->
+            <div id="section-civil" class="calc-section space-y-6 hidden">
+                <!-- Concrete Volume Estimator -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl hover:border-emerald-500/50 transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-cubes text-emerald-400"></i> Concrete Slab Volume
+                        </h3>
+                        <span class="text-xs bg-slate-800 text-slate-400 px-2.5 py-1 rounded-md">Civil Estimation</span>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Length ($L$ in meters)</label>
+                            <input type="number" id="conc-l" value="5" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Width ($W$ in meters)</label>
+                            <input type="number" id="conc-w" value="4" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Thickness ($T$ in meters)</label>
+                            <input type="number" id="conc-t" value="0.15" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <button onclick="calculateConcrete()" class="w-full mt-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2.5 px-4 rounded-xl text-sm transition-all shadow-lg shadow-emerald-900/30">
+                            Calculate Volume & Bags
+                        </button>
+                        <div id="conc-result" class="mt-4 p-3.5 bg-slate-950 rounded-xl border border-slate-800 hidden text-sm text-emerald-300"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= UNIT CONVERSION SECTION ================= -->
+            <div id="section-conversion" class="calc-section space-y-6 hidden">
+                <!-- Pressure Converter -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl hover:border-emerald-500/50 transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-gauge text-emerald-400"></i> Pressure Unit Converter
+                        </h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Value in Megapascals (MPa)</label>
+                            <input type="number" id="press-mpa" value="1" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <button onclick="convertPressure()" class="w-full mt-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2.5 px-4 rounded-xl text-sm transition-all shadow-lg shadow-emerald-900/30">
+                            Convert Units
+                        </button>
+                        <div id="press-result" class="mt-4 p-3.5 bg-slate-950 rounded-xl border border-slate-800 hidden text-sm text-emerald-300"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 mt-12 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
+            <p>© 2026 Magazawa Tech Hub. Designed & Developed by <strong class="text-emerald-400 font-semibold">Suleman Yunusa Bakura</strong>.</p>
+            <div class="flex items-center gap-4">
+                <span class="text-slate-400"><i class="fa-solid fa-code text-emerald-500 mr-1"></i> Computer Engineering</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        function switchCategory(cat) {
+            document.querySelectorAll('.calc-section').forEach(s => s.classList.add('hidden'));
+            document.querySelectorAll('.cat-tab').forEach(t => {
+                t.classList.remove('bg-emerald-600', 'text-white', 'shadow-lg', 'shadow-emerald-900/30');
+                t.classList.add('bg-slate-900', 'text-slate-400', 'border', 'border-slate-800');
+            });
+            document.getElementById('section-' + cat).classList.remove('hidden');
+            const activeTab = document.getElementById('tab-' + cat);
+            activeTab.classList.remove('bg-slate-900', 'text-slate-400', 'border', 'border-slate-800');
+            activeTab.classList.add('bg-emerald-600', 'text-white', 'shadow-lg', 'shadow-emerald-900/30');
+        }
+
+        function calculateOhmsLaw() {
+            let v = parseFloat(document.getElementById('ohm-v').value);
+            let i = parseFloat(document.getElementById('ohm-i').value);
+            let r = parseFloat(document.getElementById('ohm-r').value);
+            let resBox = document.getElementById('ohm-result');
+            resBox.classList.remove('hidden');
+
+            if (!isNaN(v) && !isNaN(i)) {
+                if(i === 0) { resBox.innerHTML = "Error: Current cannot be zero."; return; }
+                r = v / i;
+                let p = v * i;
+                resBox.innerHTML = `<strong>Results:</strong><br>Resistance ($R$) = <strong>${r.toFixed(4)} Ω</strong><br>Power ($P$) = <strong>${p.toFixed(4)} W</strong>`;
+            } else if (!isNaN(v) && !isNaN(r)) {
+                if(r === 0) { resBox.innerHTML = "Error: Resistance cannot be zero."; return; }
+                i = v / r;
+                let p = (v * v) / r;
+                resBox.innerHTML = `<strong>Results:</strong><br>Current ($I$) = <strong>${i.toFixed(4)} A</strong><br>Power ($P$) = <strong>${p.toFixed(4)} W</strong>`;
+            } else if (!isNaN(i) && !isNaN(r)) {
+                v = i * r;
+                let p = (i * i) * r;
+                resBox.innerHTML = `<strong>Results:</strong><br>Voltage ($V$) = <strong>${v.toFixed(4)} V</strong><br>Power ($P$) = <strong>${p.toFixed(4)} W</strong>`;
+            } else {
+                resBox.innerHTML = "Please enter exactly <strong>two</strong> known values to calculate the others.";
+            }
+        }
+
+        function calculateResistor() {
+            let b1 = document.getElementById('res-b1').value;
+            let b2 = document.getElementById('res-b2').value;
+            let mult = document.getElementById('res-mult').value;
+            let val = (parseInt(b1) * 10 + parseInt(b2)) * parseInt(mult);
+            let resBox = document.getElementById('res-result');
+            resBox.classList.remove('hidden');
+            let displayVal = val >= 1000000 ? (val/1000000) + ' MΩ' : (val >= 1000 ? (val/1000) + ' kΩ' : val + ' Ω');
+            resBox.innerHTML = `<strong>Calculated Resistance:</strong> ${displayVal} (±5% Tolerance)`;
+        }
+
+        function calculateReynolds() {
+            let rho = parseFloat(document.getElementById('re-density').value);
+            let v = parseFloat(document.getElementById('re-velocity').value);
+            let d = parseFloat(document.getElementById('re-diameter').value);
+            let mu = parseFloat(document.getElementById('re-viscosity').value);
+            let resBox = document.getElementById('re-result');
+            resBox.classList.remove('hidden');
+
+            if(mu === 0) { resBox.innerHTML = "Viscosity cannot be zero."; return; }
+            let re = (rho * v * d) / mu;
+            let flowType = re < 2300 ? "Laminar Flow" : (re < 4000 ? "Transitional Flow" : "Turbulent Flow");
+            resBox.innerHTML = `<strong>Reynolds Number ($Re$):</strong> ${re.toLocaleString(undefined, {maximumFractionDigits: 2})}<br><strong>Flow Regime:</strong> <span class="text-white font-semibold">${flowType}</span>`;
+        }
+
+        function calculateConcrete() {
+            let l = parseFloat(document.getElementById('conc-l').value);
+            let w = parseFloat(document.getElementById('conc-w').value);
+            let t = parseFloat(document.getElementById('conc-t').value);
+            let resBox = document.getElementById('conc-result');
+            resBox.classList.remove('hidden');
+
+            let volume = l * w * t;
+            let bags50kg = volume * 7.5; // Approx 7.5 bags of cement per cubic meter for standard mix
+            resBox.innerHTML = `<strong>Total Volume:</strong> ${volume.toFixed(3)} m³<br><strong>Estimated Cement Bags (50kg):</strong> ~${Math.ceil(bags50kg)} bags`;
+        }
+
+        function convertPressure() {
+            let mpa = parseFloat(document.getElementById('press-mpa').value);
+            let resBox = document.getElementById('press-result');
+            resBox.classList.remove('hidden');
+
+            let psi = mpa * 145.038;
+            let bar = mpa * 10;
+            let kpa = mpa * 1000;
+            resBox.innerHTML = `<strong>${mpa} MPa equals:</strong><br>• ${psi.toFixed(2)} PSI<br>• ${bar.toFixed(2)} bar<br>• ${kpa.toFixed(2)} kPa`;
+        }
+    </script>
+</body>
+</html>
